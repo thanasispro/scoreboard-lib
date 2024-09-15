@@ -1,10 +1,9 @@
 export class Team {
     private name: string;
-    private score: number;
+    private score: number = 0;
 
-    constructor(name: string, score: number = 0) {
+    constructor(name: string) {
         this.name = name;
-        this.score = score;
     }
 
     getName() {
