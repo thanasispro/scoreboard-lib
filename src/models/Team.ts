@@ -13,4 +13,8 @@ export class Team {
     getScore() {
         return this.score;
     }
+
+    setScore(score: number) {
+        this.score = score;
+    }
 }
