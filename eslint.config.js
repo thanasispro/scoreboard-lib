@@ -20,6 +20,7 @@ export default [
     rules: {
       'no-console': 'warn',
       '@typescript-eslint/no-unused-vars': 'error',
+      'semi': ['error', 'always'],
     },
   },
 ];
