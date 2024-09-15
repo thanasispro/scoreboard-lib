@@ -7,21 +7,31 @@ describe("Team Class", () => {
     team = new Team("Olympiacos");
   });
 
-  it("creates an instance with the given name and a default score", () => {
-    expect(team.getName()).toBe("Olympiacos");
-    expect(team.getScore()).toBe(0);
+  describe("Initialization", () => {
+    it("creates an instance with the given name and a default score", () => {
+      expect(team.getName()).toBe("Olympiacos");
+      expect(team.getScore()).toBe(0);
+    });
+
+    it("can set a score for the Team", () => {
+      team.setScore(1);
+      expect(team.getScore()).toBe(1);
+    });
   });
 
-  it("can set a score for the Team", () => {
-    team.setScore(1);
-    expect(team.getScore()).toBe(1);
-  });
-
-  it('throws an error when score is a negative number', () => {
-    expect(() => team.setScore(-5)).toThrow('Invalid score -5: Score must be a non-negative integer.');
-  });
-
-  it('throws an error when score is a non-integer number', () => {
-    expect(() => team.setScore(2.3)).toThrow('Invalid score 2.3: Score must be a non-negative integer.');
+  describe("Validation: score", () => {
+    it.each([
+      ["a negative number", -5],
+      ["a non-integer number", 2.3],
+      ["NaN", NaN],
+      ["Infinity", Infinity],
+    ])(
+      "should throw an error when setting score to %s (%s)",
+      (_description, score) => {
+        expect(() => team.setScore(score)).toThrow(
+          `Invalid score ${score}: Score must be a non-negative integer.`
+        );
+      }
+    );
   });
 });
