@@ -15,6 +15,7 @@ export class Team {
     }
 
     setScore(score: number) {
+        if(!Number.isInteger(score) || score < 0) throw new Error(`Invalid score ${score}: Score must be a non-negative integer.`);
         this.score = score;
     }
 }
