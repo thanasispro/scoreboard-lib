@@ -17,6 +17,11 @@ export class Match {
     return this.id;
   }
 
+  updateScore(homeTeamScore: number, awayTeamScore: number) {
+    this.homeTeam.setScore(homeTeamScore);
+    this.awayTeam.setScore(awayTeamScore);
+  }
+
   print() {
     return `${this.homeTeam.getName()} ${this.homeTeam.getScore()} - ${this.awayTeam.getName()} ${this.awayTeam.getScore()}`;
   }
