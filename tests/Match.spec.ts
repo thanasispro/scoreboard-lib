@@ -83,9 +83,9 @@ describe("Match class:", () => {
       it("should update the score if the change is +1 or -1", () => {
         const match = new Match("Greece", "Norway");
         match.updateScore(1, 0);
-        expect(match.print()).toBe("Greece: 1 - Norway: 0");
+        expect(match.print()).toBe("Greece 1 - Norway 0");
         match.updateScore(1, 1);
-        expect(match.print()).toBe("Greece: 1 - Norway: 1");
+        expect(match.print()).toBe("Greece 1 - Norway 1");
       });
 
       it("should throw an error if the home team score change is more than +1 or -1", () => {

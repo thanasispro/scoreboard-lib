@@ -17,11 +17,13 @@ export class Match {
 
   private validateTeams(homeTeamName: string, awayTeamName: string): void {
     if (!homeTeamName || !awayTeamName) {
-      throw new Error('Team names cannot be empty.');
+      throw new Error("Team names cannot be empty.");
     }
 
-    if (homeTeamName.trim().toLowerCase() === awayTeamName.trim().toLowerCase()) {
-      throw new Error('Home and away teams cannot have the same name.');
+    if (
+      homeTeamName.trim().toLowerCase() === awayTeamName.trim().toLowerCase()
+    ) {
+      throw new Error("Home and away teams cannot have the same name.");
     }
   }
 
@@ -30,6 +32,7 @@ export class Match {
   }
 
   updateScore(homeTeamScore: number, awayTeamScore: number) {
+    this.validateScoreChange(homeTeamScore, awayTeamScore);
     this.homeTeam.setScore(homeTeamScore);
     this.awayTeam.setScore(awayTeamScore);
   }
@@ -40,5 +43,21 @@ export class Match {
 
   print() {
     return `${this.homeTeam.getName()} ${this.homeTeam.getScore()} - ${this.awayTeam.getName()} ${this.awayTeam.getScore()}`;
+  }
+
+  private validateScoreChange(
+    newHomeScore: number,
+    newAwayScore: number
+  ): void {
+    if (newHomeScore - this.homeTeam.getScore() > 1) {
+      throw new Error(
+        `${this.homeTeam.getName()}'s score can only change by +1 or -1. Current: ${this.homeTeam.getScore()}, New: ${newHomeScore}`
+      );
+    }
+    if (newAwayScore - this.awayTeam.getScore() > 1) {
+      throw new Error(
+        `${this.awayTeam.getName()}'s score can only change by +1 or -1. Current: ${this.awayTeam.getScore()}, New: ${newAwayScore}`
+      );
+    }
   }
 }
