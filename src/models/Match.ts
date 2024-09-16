@@ -1,6 +1,5 @@
 import { Team } from "./Team";
-import { v4 as uuidv4 } from 'uuid';
-
+import { v4 as uuidv4 } from "uuid";
 
 export class Match {
   private homeTeam: Team;
@@ -20,6 +19,10 @@ export class Match {
   updateScore(homeTeamScore: number, awayTeamScore: number) {
     this.homeTeam.setScore(homeTeamScore);
     this.awayTeam.setScore(awayTeamScore);
+  }
+
+  getTotalScore() {
+    return this.homeTeam.getScore() + this.awayTeam.getScore();
   }
 
   print() {

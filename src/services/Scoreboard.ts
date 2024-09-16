@@ -30,4 +30,12 @@ export class Scoreboard {
     this.matches.delete(matchId);
     return matchId;
   }
+
+  public getByScore(): string[] {
+    const sortedMatches = Array.from(this.matches.values()).sort((a, b) => {
+      return b.getTotalScore() - a.getTotalScore();
+    });
+
+    return sortedMatches.map((match) => match.print());
+  }
 }
