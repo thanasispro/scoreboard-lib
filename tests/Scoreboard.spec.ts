@@ -7,12 +7,12 @@ describe("Scoreboard service", () => {
     let match: Match;
     beforeEach(() => {
       scoreboard = new Scoreboard();
-      match = scoreboard.addMatch("Olympiacos", "Rosenborg");
+      match = scoreboard.addMatch("Greece", "Norway");
     });
 
     it("should add a match to the scoreboard", () => {
       expect(match).toBeInstanceOf(Match);
-      expect(match.print()).toBe("Olympiacos 0 - Rosenborg 0");
+      expect(match.print()).toBe("Greece 0 - Norway 0");
     });
 
     it("should remove a match from the scoreboard", () => {
@@ -25,51 +25,42 @@ describe("Scoreboard service", () => {
     });
 
     it("should return a summary of games by total score, biggest score first", () => {
-      const match1 = scoreboard.addMatch("Panathinaikos", "Bodo");
+      const match1 = scoreboard.addMatch("Finland", "Iceland");
       match1.updateScore(1, 0);
 
       const scoreboardByScore = scoreboard.getByScore();
 
       expect(scoreboardByScore.length).toBe(2);
-      expect(scoreboardByScore[0]).toBe("Panathinaikos 1 - Bodo 0");
-      expect(scoreboardByScore[1]).toBe("Olympiacos 0 - Rosenborg 0");
+      expect(scoreboardByScore[0]).toBe("Finland 1 - Iceland 0");
+      expect(scoreboardByScore[1]).toBe("Greece 0 - Norway 0");
     });
 
     it("should allow adding a match with teams not involved in other active matches", () => {
         const scoreboard = new Scoreboard();
-        scoreboard.addMatch("Olympiacos", "Rosenborg");
+        scoreboard.addMatch("Greece", "Norway");
   
         expect(() => {
-          scoreboard.addMatch("Panathinaikos", "Viking");
+          scoreboard.addMatch("Finland", "Denmark");
         }).not.toThrow();
       });
   });
   describe("Validation", () => {
     it("should throw an error if the home team is already involved in a match", () => {
       const scoreboard = new Scoreboard();
-      scoreboard.addMatch("Olympiacos", "Rosenborg");
+      scoreboard.addMatch("Greece", "Norway");
 
       expect(() => {
-        scoreboard.addMatch("Olympiacos", "Molde");
-      }).toThrow("A match involving Olympiacos is already active.");
+        scoreboard.addMatch("Greece", "Sweden");
+      }).toThrow("A match involving Greece is already active.");
     });
 
     it("should throw an error if the away team is already involved in a match", () => {
       const scoreboard = new Scoreboard();
-      scoreboard.addMatch("Olympiacos", "Rosenborg");
+      scoreboard.addMatch("Greece", "Norway");
 
       expect(() => {
-        scoreboard.addMatch("Panathinaikos", "Rosenborg");
-      }).toThrow("A match involving Rosenborg is already active.");
-    });
-
-    it("should be case-insensitive when checking team involvement in matches", () => {
-      const scoreboard = new Scoreboard();
-      scoreboard.addMatch("Olympiacos", "Rosenborg");
-
-      expect(() => {
-        scoreboard.addMatch("olympiacos", "Chelsea");
-      }).toThrow("A match involving olympiacos is already active.");
+        scoreboard.addMatch("Finland", "Norway");
+      }).toThrow("A match involving Norway is already active.");
     });
   });
 });

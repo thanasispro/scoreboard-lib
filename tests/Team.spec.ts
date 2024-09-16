@@ -4,12 +4,12 @@ describe("Team Class", () => {
   let team: Team;
 
   beforeEach(() => {
-    team = new Team("Olympiacos");
+    team = new Team("Greece");
   });
 
   describe("Initialization", () => {
     it("creates an instance with the given name and a default score", () => {
-      expect(team.getName()).toBe("Olympiacos");
+      expect(team.getName()).toBe("Greece");
       expect(team.getScore()).toBe(0);
     });
 
