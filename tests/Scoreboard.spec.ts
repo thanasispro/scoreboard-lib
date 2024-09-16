@@ -22,8 +22,8 @@ describe('Scoreboard', () => {
     const scoreboard = new Scoreboard();
     const matchId = scoreboard.addMatch('Olympiacos', 'Rosenborg');
 
-    scoreboard.finishMatch(matchId);
-
+    const returnedFinishId = scoreboard.finishMatch(matchId);
+    expect(returnedFinishId).toBe(matchId);
     expect(() => scoreboard.getMatch(matchId)).toThrow(`Match with ID ${matchId} does not exist.`);
   });
 });

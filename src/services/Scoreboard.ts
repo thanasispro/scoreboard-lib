@@ -17,4 +17,17 @@ export class Scoreboard {
     }
     return match;
   }
+
+  public finishMatch(matchId: string): string {
+    const matchToEnd = this.matches.get(matchId);
+
+    if (!matchToEnd) {
+      throw new Error(
+        `Cannot remove match. Match with ID ${matchId} does not exist.`
+      );
+    }
+
+    this.matches.delete(matchId);
+    return matchId;
+  }
 }
