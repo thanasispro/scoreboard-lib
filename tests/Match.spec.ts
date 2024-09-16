@@ -17,8 +17,23 @@ describe("Match class:", () => {
       match.updateScore(0, 1);
       expect(match.print()).toBe("Olympiacos 0 - Rosenborg 1");
     });
-  });
+
+    it('should trim whitespace from the home team name and return correct summary', () => {
+      const match = new Match('  Olympiacos  ', 'Rosenborg');
+      expect(match.print()).toBe('Olympiacos 0 - Rosenborg 0');
+    });
   
+    it('should trim whitespace from the away team name and return correct summary', () => {
+      const match = new Match('Olympiacos', '  Rosenborg  ');
+      expect(match.print()).toBe('Olympiacos 0 - Rosenborg 0');
+    });
+  
+    it('should trim whitespace from both team names and return correct summary', () => {
+      const match = new Match('  Olympiacos  ', '  Rosenborg  ');
+      expect(match.print()).toBe('Olympiacos 0 - Rosenborg 0');
+    });
+  });
+
   describe("Validation:", () => {
     it("should throw an error if the home and away teams have the same name", () => {
       expect(() => {
@@ -43,5 +58,18 @@ describe("Match class:", () => {
         new Match("Olympiacos", "");
       }).toThrow("Team names cannot be empty.");
     });
+
+    it('should throw an error if the trimmed home team name is empty', () => {
+      expect(() => {
+        new Match('   ', 'Rosenborg');
+      }).toThrow('Team names cannot be empty.');
+    });
+  
+    it('should throw an error if the trimmed away team name is empty', () => {
+      expect(() => {
+        new Match('Olympiacos', '   ');
+      }).toThrow('Team names cannot be empty.');
+    });
   });
+
 });
