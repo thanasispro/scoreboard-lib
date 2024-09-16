@@ -4,6 +4,7 @@ export class Scoreboard {
   private matches: Map<string, Match> = new Map();
 
   public addMatch(homeTeamName: string, awayTeamName: string): Match {
+    this.validateTeamsForNewMatch(homeTeamName, awayTeamName);
     const match = new Match(homeTeamName, awayTeamName);
     const matchId = match.getId();
     this.matches.set(matchId, match);
@@ -37,5 +38,23 @@ export class Scoreboard {
     });
 
     return sortedMatches.map((match) => match.print());
+  }
+
+  private validateTeamsForNewMatch(homeTeamName: string, awayTeamName: string): void {
+    if (this.teamAlreadyInMatch(homeTeamName)) {
+      throw new Error(`A match involving ${homeTeamName} is already active.`);
+    }
+    if (this.teamAlreadyInMatch(awayTeamName)) {
+      throw new Error(`A match involving ${awayTeamName} is already active.`);
+    }
+  }
+
+  private teamAlreadyInMatch(teamName: string): boolean {
+    for (const match of this.matches.values()) {
+      if (match.print().toLowerCase().includes(teamName.toLowerCase())) {
+        return true;
+      }
+    }
+    return false;
   }
 }
