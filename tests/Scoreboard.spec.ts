@@ -4,19 +4,14 @@ import { Match } from "../src/models/Match";
 describe("Scoreboard service", () => {
   describe("Instance creation and methods", () => {
     let scoreboard: Scoreboard;
-    let match: Match;
+    let matchId: string;
     beforeEach(() => {
       scoreboard = new Scoreboard();
-      match = scoreboard.addMatch("Greece", "Norway");
-    });
-
-    it("should return an id from getMatchMethod", () => {
-      expect(scoreboard.getMatch(match.getId())).toBe(match);
+      matchId = scoreboard.addMatch("Greece", "Norway");
     });
 
     it("should add a match to the scoreboard", () => {
-      expect(match).toBeInstanceOf(Match);
-      expect(match.print()).toBe("Greece 0 - Norway 0");
+      expect(scoreboard.getMatch(matchId).print()).toBe("Greece 0 - Norway 0");
     });
 
     it("should throw an error if matchId does not exist", () => {
@@ -30,7 +25,6 @@ describe("Scoreboard service", () => {
     });
 
     it("should remove a match from the scoreboard", () => {
-      const matchId = match.getId();
       const returnedFinishId = scoreboard.finishMatch(matchId);
       expect(returnedFinishId).toBe(matchId);
       expect(() => scoreboard.getMatch(matchId)).toThrow(
@@ -40,7 +34,7 @@ describe("Scoreboard service", () => {
 
     it("should return a summary of games by total score, biggest score first", () => {
       const match1 = scoreboard.addMatch("Finland", "Iceland");
-      match1.updateScore(1, 0);
+      scoreboard.getMatch(match1).updateScore(1, 0);
 
       const scoreboardByScore = scoreboard.getByScore();
 

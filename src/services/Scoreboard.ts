@@ -3,12 +3,12 @@ import { Match } from "../models/Match";
 export class Scoreboard {
   private matches: Map<string, Match> = new Map();
 
-  public addMatch(homeTeamName: string, awayTeamName: string): Match {
+  public addMatch(homeTeamName: string, awayTeamName: string): string {
     this.validateTeamsForNewMatch(homeTeamName, awayTeamName);
     const match = new Match(homeTeamName, awayTeamName);
     const matchId = match.getId();
     this.matches.set(matchId, match);
-    return match;
+    return matchId;
   }
 
   public getMatch(matchId: string): Match {
