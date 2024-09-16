@@ -17,4 +17,13 @@ describe('Scoreboard', () => {
         `Match with ID 1 does not exist.`
       );
   });
+
+  it('should remove a match from the scoreboard', () => {
+    const scoreboard = new Scoreboard();
+    const matchId = scoreboard.addMatch('Olympiacos', 'Rosenborg');
+
+    scoreboard.finishMatch(matchId);
+
+    expect(() => scoreboard.getMatch(matchId)).toThrow(`Match with ID ${matchId} does not exist.`);
+  });
 });
