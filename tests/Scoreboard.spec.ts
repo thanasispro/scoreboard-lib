@@ -3,20 +3,20 @@ import { Match } from "../src/models/Match";
 
 describe("Scoreboard service", () => {
   let scoreboard: Scoreboard;
-  let matchId: string;
+  let match: Match;
 
   beforeEach(() => {
     scoreboard = new Scoreboard();
-    matchId = scoreboard.addMatch("Olympiacos", "Rosenborg");
+    match = scoreboard.addMatch("Olympiacos", "Rosenborg");
   });
 
   it("should add a match to the scoreboard", () => {
-    const match = scoreboard.getMatch(matchId);
     expect(match).toBeInstanceOf(Match);
     expect(match.print()).toBe("Olympiacos 0 - Rosenborg 0");
   });
 
   it("should remove a match from the scoreboard", () => {
+    const matchId = match.getId();
     const returnedFinishId = scoreboard.finishMatch(matchId);
     expect(returnedFinishId).toBe(matchId);
     expect(() => scoreboard.getMatch(matchId)).toThrow(
@@ -25,10 +25,7 @@ describe("Scoreboard service", () => {
   });
 
   it("should return a summary of games by total score, biggest score first", () => {
-    const matchId1 = scoreboard.addMatch("Panathinaikos", "Bodo");
-
-    const match1 = scoreboard.getMatch(matchId1);
-
+    const match1 = scoreboard.addMatch("Panathinaikos", "Bodo");
     match1.updateScore(1, 0);
 
     const scoreboardByScore = scoreboard.getByScore();
