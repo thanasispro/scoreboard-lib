@@ -10,9 +10,23 @@ describe("Scoreboard service", () => {
       match = scoreboard.addMatch("Greece", "Norway");
     });
 
+    it("should return an id from getMatchMethod", () => {
+      expect(scoreboard.getMatch(match.getId())).toBe(match);
+    });
+
     it("should add a match to the scoreboard", () => {
       expect(match).toBeInstanceOf(Match);
       expect(match.print()).toBe("Greece 0 - Norway 0");
+    });
+
+    it("should throw an error if matchId does not exist", () => {
+      const scoreboard = new Scoreboard();
+
+      expect(() => {
+        scoreboard.finishMatch("invalid-id");
+      }).toThrow(
+        "Cannot remove match. Match with ID invalid-id does not exist."
+      );
     });
 
     it("should remove a match from the scoreboard", () => {
@@ -36,13 +50,13 @@ describe("Scoreboard service", () => {
     });
 
     it("should allow adding a match with teams not involved in other active matches", () => {
-        const scoreboard = new Scoreboard();
-        scoreboard.addMatch("Greece", "Norway");
-  
-        expect(() => {
-          scoreboard.addMatch("Finland", "Denmark");
-        }).not.toThrow();
-      });
+      const scoreboard = new Scoreboard();
+      scoreboard.addMatch("Greece", "Norway");
+
+      expect(() => {
+        scoreboard.addMatch("Finland", "Denmark");
+      }).not.toThrow();
+    });
   });
   describe("Validation", () => {
     it("should throw an error if the home team is already involved in a match", () => {
