@@ -7,6 +7,8 @@ export class Match {
   private id: string;
 
   constructor(homeTeamName: string, awayTeamName: string) {
+    homeTeamName = homeTeamName.trim();
+    awayTeamName = awayTeamName.trim();
     this.validateTeams(homeTeamName, awayTeamName);
     this.homeTeam = new Team(homeTeamName);
     this.awayTeam = new Team(awayTeamName);
