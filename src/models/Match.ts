@@ -7,9 +7,20 @@ export class Match {
   private id: string;
 
   constructor(homeTeamName: string, awayTeamName: string) {
+    this.validateTeams(homeTeamName, awayTeamName);
     this.homeTeam = new Team(homeTeamName);
     this.awayTeam = new Team(awayTeamName);
     this.id = uuidv4();
+  }
+
+  private validateTeams(homeTeamName: string, awayTeamName: string): void {
+    if (!homeTeamName || !awayTeamName) {
+      throw new Error('Team names cannot be empty.');
+    }
+
+    if (homeTeamName.trim().toLowerCase() === awayTeamName.trim().toLowerCase()) {
+      throw new Error('Home and away teams cannot have the same name.');
+    }
   }
 
   getId() {
