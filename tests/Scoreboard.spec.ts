@@ -1,5 +1,4 @@
 import { Scoreboard } from "../src/services/Scoreboard";
-import { Match } from "../src/models/Match";
 
 describe("Scoreboard service", () => {
   describe("Instance creation and methods", () => {
