@@ -10,4 +10,11 @@ describe('Scoreboard', () => {
     expect(match).toBeInstanceOf(Match);
     expect(match.print()).toBe('Olympiacos 0 - Rosenborg 0');
   });
+
+  it('should throw an error with no wrong match id', () => {
+    const scoreboard = new Scoreboard();
+    expect(() => scoreboard.getMatch('1')).toThrow(
+        `Match with ID 1 does not exist.`
+      );
+  });
 });
