@@ -84,6 +84,12 @@ describe("Match class:", () => {
           new Match("Atlantis", "Norway");
         }).toThrow("Atlantis is not from participating countries.");
       });
+
+      it("should throw an error with the faulty team if the team is not from participating countries", () => {
+        expect(() => {
+          new Match("Norway", "Ares");
+        }).toThrow("Ares is not from participating countries.");
+      });
     });
     describe("Score", () => {
       it("should update the score if the change is +1 or -1", () => {
