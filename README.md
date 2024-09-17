@@ -207,6 +207,22 @@ try {
 }
 ```
 
+- **Team Not in Participating Countries**: If one or both team names are not from the list of participating countries, an error will specify which team is invalid:
+
+  ```typescript
+  try {
+    scoreboard.addMatch('Atlantis', 'Norway');
+  } catch (error) {
+    console.error(error.message);  // Outputs: "Atlantis is not from participating countries."
+  }
+
+  try {
+    scoreboard.addMatch('Norway', 'Ares');
+  } catch (error) {
+    console.error(error.message);  // Outputs: "Ares is not from participating countries."
+  }
+```
+
 ## License
 
 This project is licensed under the MIT License.
