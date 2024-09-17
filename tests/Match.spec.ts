@@ -78,6 +78,12 @@ describe("Match class:", () => {
           new Match("Greece", "   ");
         }).toThrow("Team names cannot be empty.");
       });
+
+      it("should throw an error with the faulty team if the team is not from participating countries", () => {
+        expect(() => {
+          new Match("Atlantis", "Norway");
+        }).toThrow("Atlantis is not from participating countries.");
+      });
     });
     describe("Score", () => {
       it("should update the score if the change is +1 or -1", () => {
