@@ -1,6 +1,23 @@
 import { Team } from "./Team";
 import { v4 as uuidv4 } from "uuid";
 
+const PARTICIPATING_COUNTRIES = [
+  "Greece",
+  "Norway",
+  "Brazil",
+  "Argentina",
+  "Germany",
+  "France",
+  "Spain",
+  "Italy",
+  "Denmark",
+  "Finland",
+  "England",
+  "Sweden",
+  "Iceland",
+  "Japan"
+];
+
 export class Match {
   private homeTeam: Team;
   private awayTeam: Team;
@@ -24,6 +41,14 @@ export class Match {
       homeTeamName.trim().toLowerCase() === awayTeamName.trim().toLowerCase()
     ) {
       throw new Error("Home and away teams cannot have the same name.");
+    }
+
+    if (!this.isValidCountry(homeTeamName)) {
+      throw new Error(`${homeTeamName} is not from participating countries.`);
+    }
+
+    if (!this.isValidCountry(awayTeamName)) {
+      throw new Error(`${awayTeamName} is not from participating countries.`);
     }
   }
 
@@ -59,5 +84,11 @@ export class Match {
         `${this.awayTeam.getName()}'s score can only change by +1 or -1. Current: ${this.awayTeam.getScore()}, New: ${newAwayScore}`
       );
     }
+  }
+
+  private isValidCountry(teamName: string): boolean {
+    return PARTICIPATING_COUNTRIES.some(
+      (country) => country.toLowerCase() === teamName.toLowerCase()
+    );
   }
 }
